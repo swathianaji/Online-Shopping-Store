@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<head>
+  <!-- Page Meta Tags-->
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+
+  <!-- Custom Google Fonts-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Roboto:wght@300;400;700&display=auto"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="../static/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Vendor CSS -->
+  <link rel="stylesheet" href="../static/css/libs.bundle.css" />
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="../static/css/theme.bundle.css" />
+
+  <!-- Fix for custom scrollbar if JS is disabled-->
+  <noscript>
+    <style>
+      /**
+          * Reinstate scrolling for non-JS clients
+          */
+      .simplebar-content-wrapper {
+        overflow: auto;
+      }
+    </style>
+  </noscript>
+
+  <!-- Page Title -->
+  <title>{{ product.name }}</title>
+ 
+</head>
+<body class="">
+
+    <!-- Navbar -->
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white flex-column border-0" style="margin: 20px;">
+        <div class="container-fluid">
+            <div class="w-100">
+                <div class="d-flex justify-content-between align-items-center flex-wrap" style="padding: 20;">
+    
+                    <!-- Logo-->
+                    <a class="navbar-brand fw-bold fs-3 m-0 p-0 flex-shrink-0 order-0" href="{{ url_for('home') }}">
+                        <div class="d-flex align-items-center">
+                            <!-- <svg class="f-w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77.53 72.26"><path d="M10.43,54.2h0L0,36.13,10.43,18.06,20.86,0H41.72L10.43,54.2Zm67.1-7.83L73,54.2,68.49,62,45,48.47,31.29,72.26H20.86l-5.22-9L52.15,0H62.58l5.21,9L54.06,32.82,77.53,46.37Z" fill="currentColor" fill-rule="evenodd"/></svg> -->
+                            <h4>Online Shopping Store</h4>
+                        </div>
+                    </a>
+                    <!-- / Logo-->
+    
+                    <!-- Navbar Icons-->
+                    <ul class="list-unstyled mb-0 d-flex align-items-center order-1 order-lg-2 nav-sidelinks">
+    
+                        <!-- Navbar Cart Icon-->
+                        <li class="ms-1 d-inline-block position-relative dropdown-cart">
+                            <button class="nav-link me-0 disable-child-pointer border-0 p-0 bg-transparent text-body"
+                                type="button">
+                                <i class="fa fa-shopping-cart" style="font-size:22px"></i> {{ cart["num_items"] }}
+                            </button>
+                            
+                            {% include 'cart.html' %}
+    
+                        </li>
+                        <!-- /Navbar Cart Icon-->
+    
+                    </ul>
+                    <!-- Navbar Icons-->                
+    
+                    <!-- Main Navigation-->
+                    <div class="flex-shrink-0 collapse navbar-collapse navbar-collapse-light w-auto flex-grow-1 order-2 order-lg-1 mx-auto mb-2 mb-lg-0"
+                        id="navbarNavDropdown">
+    
+                        
+                    </div>
+                    <!-- / Main Navigation-->
+    
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- / Navbar-->    <!-- / Navbar-->
+    
+    <!-- Main Section-->
+    <section class="mt-0 ">
+        <!-- Page Content Goes Here -->            
+
+        <div class="container-fluid mt-5 align-items-center">
+
+            <!-- Product Top Section-->
+            <div class="row g-9" data-sticky-container>
+
+                <!-- Product Images-->
+                <div class="col-12 col-md-6 col-xl-6">
+                    <div class="row g-2 justify-content-center" data-aos="fade-right">
+                        <div class="col-12" style="width: 80%;">
+                            <picture>
+                                <img class="img-fluid" data-zoomable src="{{ product.image }}" alt="Product">
+                            </picture>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Product Images-->
+    
+                <!-- Product Information-->
+                <div class="col-12 col-md-6 col-xl-5">
+                    <div class="sticky-top top-5">
+                            
+                            <h1 class="mb-1 mt-4 fs-2 fw-bold">{{ product.name }}</h1>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="fs-4 m-0">${{ product.price }}</p>
+                            </div>
+
+                            <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post">
+                                {% if product.availability > 0 %}
+                                    <button class="btn btn-dark w-100 mt-4 mb-0 hover-lift-sm hover-boxshadow" type="submit">Add To Cart</button>
+                                {% else %}
+                                    <button class="btn btn-dark w-100 mt-4 mb-0 hover-lift-sm hover-boxshadow" type="submit" disabled>Out of Stock</button>
+                                {% endif %}
+                            </form>
+                
+                        
+                            <!-- Product Accordion -->
+                            <div class="accordion mt-4" id="accordionProduct">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                      Product description
+                                    </button>
+                                  </h2>
+                                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionProduct">
+                                    <div class="accordion-body">
+                                        <p class="m-0">{{ product.description }}</p>
+                                    </div>
+                                  </div>
+                                </div>        
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                      Delivery & Returns
+                                    </button>
+                                  </h2>
+                                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionProduct">
+                                    <div class="accordion-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex border-0 row g-0 px-0">
+                                                <span class="col-4 fw-bolder">Delivery</span>
+                                                <span class="col-7 offset-1">Standard delivery free for orders over $99. Next day delivery $9.99</span>
+                                            </li>
+                                            <li class="list-group-item d-flex border-0 row g-0 px-0">
+                                                <span class="col-4 fw-bolder">Returns</span>
+                                                <span class="col-7 offset-1">30 day return period. See our <a class="text-link-border" href="#">terms & conditions.</a></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            <!-- / Product Accordion-->
+                        </div>                    </div>
+                </div>
+                <!-- / Product Information-->
+            </div>
+            <!-- / Product Top Section-->
+
+        </div>
+
+        <!-- /Page Content -->
+    </section>
+    <!-- / Main Section-->
+
+    <!-- Footer -->
+    <footer class="border-top py-5 mt-4  ">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center flex-column flex-lg-row">
+                <div>
+                    <ul class="list-unstyled">
+                        <li class="d-inline-block me-1"><a class="text-decoration-none text-dark-hover transition-all"
+                                href="#"><i class="ri-linkedin-fill"></i></a></li>
+                        <li class="d-inline-block me-1"><a class="text-decoration-none text-dark-hover transition-all"
+                            href="#"><i class="ri-github-fill"></i></a></li>
+                    </ul>
+                </div>
+                <div class="d-flex align-items-center justify-content-end flex-column flex-lg-row">
+                    <p class="small m-0 text-center text-lg-start">&copy; 2024 Swathi Anaji Revanasiddappa All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>    <!-- / Footer--> 
+
+    <!-- Theme JS -->
+    <!-- Vendor JS -->
+    <script src="../static/js/vendor.bundle.js"></script>
+    
+    <!-- Theme JS -->
+    <script src="../static/js/theme.bundle.js"></script>
+</body>
+
+</html>
